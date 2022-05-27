@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #navbar{
+            border: 2px red solid;
+            width: 88%;
+            margin: auto;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            padding: 1%;
+            position:fixed;
+            left:5%;
+            /* background-color: white; */
+        }
+        #searchBox{
+            border:  2px red solid;
+            width: 15%;
+            display: flex;
+            justify-content:space-around;
+        }
+        .searchDiv{
+            width: 75%;
+            height: 100%;
+            font-size: 150%;
+        }
+        .searchDivButton{
+            height: 100%;
+            font-size: 150%;
+            /* background-color: ; */
+        }
+        #title{
+            font-size: 200%;
+        }
+        #search, #searchButton{
+            background-color: aliceblue;
+        }
+        #showcase{
+            width: 80%;
+            border:  2px red solid;
+            margin: auto;
+            height: 300px;
+            padding: 5%;
+            display: flex;
+            justify-content: space-between;
+        }
+        #mapArea{
+            width: 90%;
+            border:  2px red solid;
+            margin: auto;
+            height: 300px;
+        }
+        .cardDiv{
+            border: 2px red solid;
+            max-width: 10%;
+            min-width: 120px;
+            height: 90%;
+        }
+        .card{
+            width: 96%;
+            border: 2px red solid;
+            height: 18%;
+            text-align: center;
+            padding: 2%;
+        }
+        .image{
+            height: 40%;
+            width: 100%;
+            border:  2px red solid;
+        }
+        .img{
+            height: 100%;
+            width: 100%;
+            border:  2px red solid;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div id="title">Forecast</div>
+        <div id="searchBox">
+            <div class="searchDiv"><input type="text" name="search" id="search" placeholder="Search....."></div>
+            <div class="searchDivButton"><button id="searchButton">Search</button></div>
+        </div>
+    </div>
+    <div id="mapArea">
+        
+    </div>
+    <div id="showcase">
+
+        <div class="cardDiv">
+            <div class="card">Day</div>
+            <div class="image"><img class="img" src="" alt=""></div>
+            <div class="card">Max_temp</div>
+            <div class="card">Min_temp</div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    // setting webAddress>>>>>>>>>>>>>>
+    let search = document.getElementById('searchButton');
+    search.addEventListener('click',getData);
+
+    function setData()
+    {
+        const apiKey      = "b52052c56d7e47df46a5c05be1e026eb";
+        const webAddress  = "https://api.openweathermap.org/data/2.5/forecast?q="
+        const adddays     = "&cnt=10&appid=";
+        const city = document.getElementById('search').value || "rohtak"
+
+        return (`${webAddress}${city}${adddays}${apiKey}`)
+    }
+    // https://api.openweathermap.org/data/2.5/forecast?q=rohtak&cnt=10&appid=b52052c56d7e47df46a5c05be1e026eb
+
+
+    // getiingData>>>>>>>>>>>>>>>
+    function getData()
+    {
+        const webAddress = setData()
+
+        processData(webAddress)
+    }
+
+
+    // processing data>>>>>>>>>>>
+
+    async function processData(webAddress)
+    {
+         let response = await fetch(webAddress)
+
+         let convert = await response.json()
+
+         console.log(convert)
+    }
+
+
+    getData()
+
+
+</script>
